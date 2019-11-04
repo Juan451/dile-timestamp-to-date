@@ -1,0 +1,36 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+<dom-module id="dile-timestamp-to-date">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>Hello [[prop1]]!</h2>
+  </template>
+
+  <script>
+    /**
+     * `dile-timestamp-to-date`
+     * 
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class DileTimestampToDate extends Polymer.Element {
+      static get is() { return 'dile-timestamp-to-date'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'dile-timestamp-to-date'
+          }
+        };
+      }
+    }
+
+    window.customElements.define(DileTimestampToDate.is, DileTimestampToDate);
+  </script>
+</dom-module>

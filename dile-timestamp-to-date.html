@@ -1,0 +1,75 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+<dom-module id="dile-timestamp-to-date">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+  
+    [[date]]
+  </template>
+
+  <script>
+    /**
+     * `dile-timestamp-to-date`
+     * 
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class DileTimestampToDate extends Polymer.Element {
+      static get is() { return 'dile-timestamp-to-date'; }
+      static get properties() {
+        return {
+          timestamp: { //esto se usa para cargar el numero de los milisegundos
+            type: Number //que voy a cargar como fecha
+
+          },
+          date: {
+            type: String,
+            value: '',
+            readOnly: true,
+            computed: 'timeStampToString(timestamp, format)'
+          },
+          format: {
+            type: String,
+            value: 'en'
+          },
+          formatFunctions: {
+            type: Object,
+            readOnly: true,
+            value: function () {
+              return {
+                'es': function (date) { //esta funcion recibe un objeto date 
+                  return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+                },
+                'en': function (date) {
+                  return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
+                },
+              };
+            }
+          }
+        };
+      }
+
+      timeStampToString(timestamp, format) {
+        if(!timestamp){
+          return '';
+        }else{
+          if(! this.formatFunctions[format]){
+            return 'invalid format';
+          }
+          let date = new Date(timestamp); //aqui creo un objeto date, este objeto date se
+          //crea a traves de timestamp
+          return this.formatFunctions[format](date);// y luego devuelvo aquello mismo
+          // que me devuelva la funcion en el metodo del formato pasandole el objeto
+          //fecha que acabo de crear
+        }
+      }
+    }
+    window.customElements.define(DileTimestampToDate.is, DileTimestampToDate);
+  </script>
+</dom-module>
